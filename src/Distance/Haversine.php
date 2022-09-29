@@ -3,7 +3,8 @@
 namespace Janfish\LBS\Distance;
 
 use Janfish\LBS\Constants\Earth;
-use Janfish\LBS\Constants\Math;
+
+use Janfish\LBS\Util\Math;
 
 /**
  * Author:Robert
@@ -16,37 +17,23 @@ class Haversine implements DistanceInterface
 {
 
     /**
-     *
+     * 计算角度形成的弧之间的三角函数侧边
      * @param float $lng1
      * @param float $lat1
      * @param float $lng2
      * @param float $lat2
-     * @return int
-     */
-    public function getDistance(float $lng1, float $lat1, float $lng2, float $lat2): int
-    {
-        //将角度转化为弧度
-//        $radLng1 = deg2rad($lng1);
-//        $radLat1 = deg2rad($lat1);
-//        $radLng2 = deg2rad($lng2);
-//        $radLat2 = deg2rad($lat2);
-        $radLng1 = $this->radians($lng1);
-        $radLat1 = $this->radians($lat1);
-        $radLng2 = $this->radians($lng2);
-        $radLat2 = $this->radians($lat2);
-        $a = ($radLat1 - $radLat2) / 2;
-        $b = ($radLng1 - $radLng2) / 2;
-        return asin(sqrt(sin($a) * sin($b) + cos($radLat1) * cos($radLat2) * sin($b) * sin($a))) * Earth::EARTH_RADIUS * 2;
-    }
-
-    /**
-     * 角度转换为弧度
-     * @param float $degree
      * @return float
      */
-    public function radians(float $degree): float
+    public function getDistance(float $lng1, float $lat1, float $lng2, float $lat2): float
     {
-        return $degree * Math::PI / 180.0;
+        $radLng1 = Math::rad2deg($lng1);
+        $radLat1 = Math::rad2deg($lat1);
+        $radLng2 = Math::rad2deg($lng2);
+        $radLat2 = Math::rad2deg($lat2);
+        $a = ($radLat1 - $radLat2) / 2; //2点经度角度差
+        $b = ($radLng1 - $radLng2) / 2;//2点纬度角度差
+        //三角边长
+        return asin(sqrt(sin($a) * sin($a) + cos($radLat1) * cos($radLat2) * sin($b) * sin($b))) * Earth::EARTH_RADIUS * 2;
     }
 
 

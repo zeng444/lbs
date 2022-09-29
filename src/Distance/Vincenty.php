@@ -3,44 +3,36 @@
 namespace Janfish\LBS\Distance;
 
 use Janfish\LBS\Constants\Earth;
-use Janfish\LBS\Constants\Math;
+use Janfish\LBS\Util\Math;
+use Janfish\LBS\Constants\Math as MathConstant;
 
+/**
+ * Author:Robert
+ *
+ * Class Vincenty
+ * @package Janfish\LBS\Distance
+ */
 class Vincenty implements DistanceInterface
 {
-
-
-    /**
-     * 根据提供的角度值，将其转化为弧度
-     * @param float $angle
-     * @return float
-     */
-    public function toRadians(float $angle): float
-    {
-        $result = 0;
-        if ($angle != null) {
-            $result = $angle * Math::PI / 180;
-        }
-        return $result;
-    }
 
     /**
      * @param float $lng1
      * @param float $lat1
      * @param float $lng2
      * @param float $lat2
-     * @return int
+     * @return float
      */
-    public function getDistance(float $lng1, float $lat1, float $lng2, float $lat2): int
+    public function getDistance(float $lng1, float $lat1, float $lng2, float $lat2): float
     {
-        $L = $this->toRadians($lng1 - $lng2);
-        $U1 = atan((1 - Earth::OBLATENESS) * tan($this->toRadians($lat1)));
-        $U2 = atan((1 - Earth::OBLATENESS) * tan($this->toRadians($lat2)));
+        $L = Math::rad2deg($lng1 - $lng2);
+        $U1 = atan((1 - Earth::EARTH_OBLATENESS) * tan(Math::rad2deg($lat1)));
+        $U2 = atan((1 - Earth::EARTH_OBLATENESS) * tan(Math::rad2deg($lat2)));
         $sinU1 = sin($U1);
         $cosU1 = cos($U1);
         $sinU2 = sin($U2);
         $cosU2 = cos($U2);
         $lambda = $L;
-        $lambdaP = Math::PI;
+        $lambdaP = MathConstant::PI;
         $cosSqAlpha = 0;
         $sinSigma = 0;
         $cos2SigmaM = 0;
@@ -61,9 +53,9 @@ class Vincenty implements DistanceInterface
             $alpha = asin($cosU1 * $cosU2 * $sinLambda / $sinSigma);
             $cosSqAlpha = cos($alpha) * cos($alpha);
             $cos2SigmaM = $cosSigma - 2 * $sinU1 * $sinU2 / $cosSqAlpha;
-            $C = Earth::OBLATENESS / 16 * $cosSqAlpha * (4 + Earth::OBLATENESS * (4 - 3 * $cosSqAlpha));
+            $C = Earth::EARTH_OBLATENESS / 16 * $cosSqAlpha * (4 + Earth::EARTH_OBLATENESS * (4 - 3 * $cosSqAlpha));
             $lambdaP = $lambda;
-            $lambda = $L + (1 - $C) * Earth::OBLATENESS * sin($alpha) *
+            $lambda = $L + (1 - $C) * Earth::EARTH_OBLATENESS * sin($alpha) *
                 ($sigma + $C * $sinSigma * ($cos2SigmaM + $C * $cosSigma * (-1 + 2 * $cos2SigmaM * $cos2SigmaM)));
         }
         if ($circleCount == 0) {

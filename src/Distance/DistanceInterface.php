@@ -10,7 +10,7 @@ interface DistanceInterface
      * @param float $lat1
      * @param float $lng2
      * @param float $lat2
-     * @return int
+     * @return float
      */
-    public function getDistance(float $lng1, float $lat1, float $lng2, float $lat2): int;
+    public function getDistance(float $lng1, float $lat1, float $lng2, float $lat2): float;
 }
