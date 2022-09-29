@@ -24,6 +24,7 @@ class hash
 
     /**
      * @param array $options
+     * @throws LBSException
      */
     public function __construct(array $options = [])
     {
@@ -112,7 +113,7 @@ class hash
 
     public function neighbors(): array
     {
-        
+
     }
 
 
