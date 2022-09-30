@@ -1,15 +1,15 @@
 ### LBS
 
-#### 生成测试坐标
+#### Generate coordinate
 
 ```
 list($lng, $lat) = Tool::generateCoordinate();
 list($lng2, $lat2) = Tool::generateCoordinate();
 ```
 
-#### 距离
+#### Distance
 
-- Vincenty算法
+- Vincenty
 
 ```
 use Janfish\LBS\LBS;
@@ -18,7 +18,7 @@ use Janfish\LBS\Constant\Math;
 LBS::getDistance($lng, $lat, $lng2, $lat2, Math::VINCENTY_DISTANCE);
 ```
 
-- Haversine算法
+- Haversine
 
 ```
 use Janfish\LBS\LBS;
@@ -27,7 +27,7 @@ use Janfish\LBS\Constant\Math;
 LBS::getDistance($lng, $lat, $lng2, $lat2, Math::HAVERSINE_DISTANCE);
 ```
 
-#### 方位角
+#### Angle
 
 ```
 use Janfish\LBS\LBS;
@@ -35,7 +35,7 @@ use Janfish\LBS\LBS;
 LBS::getAngle($lng, $lat, $lng2, $lat2);
 ```
 
-#### 坐标Geohash
+#### Geohash
 
 ```
 use Janfish\LBS\LBS;
@@ -43,9 +43,9 @@ use Janfish\LBS\LBS;
 LBS::getGeoHash($lng, $lat, 16);
 ```
 
-#### 坐标Geohash
+#### Geohash neighbors
 
-- 周边区域hash
+- neighbors
 
 ```
 use Janfish\LBS\LBS;
@@ -53,7 +53,7 @@ use Janfish\LBS\LBS;
 (LBS::getGeoHashNeighbor($geoHash))->getSurround();
 ```
 
-- 指定方位区域hash
+- Specified direction
 
 ```
 use Janfish\LBS\LBS;
