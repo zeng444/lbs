@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace Janfish\LBS\Constants;
+namespace Janfish\LBS\Constant;
 
 class Math
 {

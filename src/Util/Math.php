@@ -2,7 +2,7 @@
 
 namespace Janfish\LBS\Util;
 
-use Janfish\LBS\Constants\Math as MathConstant;
+use Janfish\LBS\Constant\Math as MathConstant;
 
 /**
  * Author:Robert

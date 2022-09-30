@@ -2,9 +2,9 @@
 
 namespace Janfish\LBS\Distance;
 
-use Janfish\LBS\Constants\Earth;
+use Janfish\LBS\Constant\Earth;
 use Janfish\LBS\Util\Math;
-use Janfish\LBS\Constants\Math as MathConstant;
+use Janfish\LBS\Constant\Math as MathConstant;
 
 /**
  * Author:Robert

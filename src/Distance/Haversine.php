@@ -2,7 +2,7 @@
 
 namespace Janfish\LBS\Distance;
 
-use Janfish\LBS\Constants\Earth;
+use Janfish\LBS\Constant\Earth;
 
 use Janfish\LBS\Util\Math;
 

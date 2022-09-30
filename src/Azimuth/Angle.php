@@ -3,7 +3,7 @@
 namespace Janfish\LBS\Azimuth;
 
 use Janfish\LBS\Util\Math;
-use Janfish\LBS\Constants\Math as MathConstant;
+use Janfish\LBS\Constant\Math as MathConstant;
 
 /**
  * 方位角(从某点的指北方向线起，依顺时针方向到目标方向线之间的水平夹角)
@@ -56,16 +56,5 @@ class Angle
         return $angle;
     }
 
-    public function getDirection(float $lng1, float $lat1, float $lng2, float $lat2): float
-    {
-        $lat1 = Math::deg2Rad($lat1);
-        $lat2 = Math::deg2Rad($lat2);
-        $lng1 = Math::deg2Rad($lng1);
-        $lng2 = Math::deg2Rad($lng2);
-        $deltaFI = log(tan($lat2 / 2 + MathConstant::PI / 4) / tan($lat1 / 2 + MathConstant::PI / 4));
-        $deltaLON = abs($lng1 - $lng2) % 180;
-        $theta = atan2($deltaLON, $deltaFI);
-        return Math::rad2deg($theta);
-    }
 
 }

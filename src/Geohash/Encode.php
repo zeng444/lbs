@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace Janfish\LBS\Geo;
+namespace Janfish\LBS\Geohash;
 
 use Janfish\LBS\Exception\LBSException;
 
@@ -11,12 +11,16 @@ use Janfish\LBS\Exception\LBSException;
  * Class hash
  * @package Janfish\LBS\Geo
  */
-class hash
+class Encode
 {
 
-    private $hash = '';
+    private $lngBinary;
+
+    private $latBinary;
 
     private $len = 6;
+
+    private const MAX_HASH_LENGTH = 22;
 
     private const GROUP_LEN = 5;
 
@@ -40,27 +44,48 @@ class hash
      */
     public function setLength(int $len)
     {
-        if ($len > 14) {
+        if ($len > self::MAX_HASH_LENGTH) {
             throw new LBSException('geo hash length is maxed');
         }
         $this->len = $len;
     }
 
     /**
+     * 第一步取得分组和二进制
+     * 第二步取得Hash码
      * @param float $lng
      * @param float $lat
      * @return string
      */
     public function encode(float $lng, float $lat): string
     {
-        $binary = $this->getBinary($lng, $lat);
+        return $this->getHash($this->getBinary($lng, $lat));
+    }
+
+
+    /**
+     * @param string $string
+     * @return string
+     */
+    public function base32encode(string $string): string
+    {
+        return self::BASE32_DICT[bindec($string)];
+    }
+
+
+    /**
+     * @param string $binary
+     * @return string
+     */
+    private function getHash(string $binary): string
+    {
         $hash = '';
         for ($i = 0; $i < strlen($binary); $i += self::GROUP_LEN) {
             $hash .= $this->base32encode(substr($binary, $i, self::GROUP_LEN));
         }
-        $this->hash = $hash;
-        return $this->hash;
+        return $hash;
     }
+
 
     /**
      * @param float $lng
@@ -69,11 +94,11 @@ class hash
      */
     private function getBinary(float $lng, float $lat): string
     {
-        $lngHashBin = $this->groupArea($lng, -180, 180);
-        $latHashBin = $this->groupArea($lat, -90, 90);
+        $this->lngBinary = $this->groupArea($lng, -180, 180);
+        $this->latBinary = $this->groupArea($lat, -90, 90);
         $hash = '';
-        for ($index = 0; $index < strlen($lngHashBin); $index++) {
-            $hash .= $lngHashBin[$index] . $latHashBin[$index];
+        for ($index = 0; $index < strlen($this->lngBinary); $index++) {
+            $hash .= $this->lngBinary[$index] . $this->latBinary [$index];
         }
         return $hash;
     }
@@ -101,20 +126,5 @@ class hash
         }
         return $hashBin;
     }
-
-    /**
-     * @param string $string
-     * @return string
-     */
-    public function base32encode(string $string): string
-    {
-        return self::BASE32_DICT[bindec($string)];
-    }
-
-    public function neighbors(): array
-    {
-
-    }
-
 
 }

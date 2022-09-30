@@ -3,7 +3,7 @@
 namespace Janfish\LBS\Util;
 
 
-use Janfish\LBS\Constants\Earth;
+use Janfish\LBS\Constant\Earth;
 
 /**
  * Author:Robert
@@ -15,12 +15,11 @@ class Tool
 {
 
     /**
-     * 生成指定范围的坐标
-     * @param string $stander
      * @param int $decimal
+     * @param string $stander
      * @return array
      */
-    public static function generateCoordinate(string $stander = Earth::WGC84_COORDINATE_STANDER, int $decimal = 6): array
+    public static function generateCoordinate(int $decimal = 6,string $stander = Earth::WGC84_COORDINATE_STANDER): array
     {
         $range = Earth::PRC_WGC84_COORDINATE_RANGE[$stander] ?: [
             'lng' => [-180, 180],
