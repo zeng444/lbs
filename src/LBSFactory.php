@@ -36,7 +36,7 @@ class LBSFactory
     public static function getDistance(float $lng1, float $lat1, float $lng2, float $lat2, string $algo = Math::HAVERSINE_DISTANCE): float
     {
         if (!isset(self::DISTANCE_ALGO_CLASSES[$algo])) {
-            throw new LBSException('lbs distance algo not exist');
+            throw new LBSException('LBS distance algo not exist');
         }
         $className = self::DISTANCE_ALGO_CLASSES[$algo];
         return (new $className)->getDistance($lng1, $lat1, $lng2, $lat2);
