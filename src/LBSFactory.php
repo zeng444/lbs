@@ -3,6 +3,7 @@
 namespace Janfish\LBS;
 
 use Janfish\LBS\Azimuth\Angle;
+use Janfish\LBS\Constant\Earth;
 use Janfish\LBS\Constant\Math;
 use Janfish\LBS\Exception\LBSException;
 use Janfish\LBS\Geohash\Encode;
@@ -11,10 +12,10 @@ use Janfish\LBS\Geohash\Neighbor;
 /**
  * Author:Robert
  *
- * Class LBS
+ * Class LBSFactory
  * @package
  */
-class LBS
+class LBSFactory
 {
 
     public const DISTANCE_ALGO_CLASSES = [
@@ -78,5 +79,21 @@ class LBS
         return new Neighbor($hash);
     }
 
+    /**
+     * @param float $lng
+     * @param float $lat
+     * @param string $from
+     * @param string $to
+     * @return array
+     * @throws LBSException
+     */
+    public function transform(float $lng, float $lat, string $from = Earth::WGS84_COORDINATE_STANDER, string $to = Earth::GCJ02_COORDINATE_STANDER): array
+    {
+        $class = sprintf('\Janfish\LBS\Transform\%sTo%s', $from, $to);
+        if (!class_exists($class)) {
+            throw new LBSException('transform class not exist');
+        }
+        return (new $class)->transform($lng, $lat);
+    }
 
 }

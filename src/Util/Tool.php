@@ -19,9 +19,9 @@ class Tool
      * @param string $stander
      * @return array
      */
-    public static function generateCoordinate(int $decimal = 6,string $stander = Earth::WGC84_COORDINATE_STANDER): array
+    public static function generateCoordinate(int $decimal = 6,string $stander = Earth::WGS84_COORDINATE_STANDER): array
     {
-        $range = Earth::PRC_WGC84_COORDINATE_RANGE[$stander] ?: [
+        $range = Earth::PRC_WGS84_COORDINATE_RANGE[$stander] ?: [
             'lng' => [-180, 180],
             'lat' => [-90, 90],
         ];
