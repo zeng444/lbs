@@ -39,8 +39,12 @@ class Earth
     /**
      *
      */
-    public const PRC_WGS84_COORDINATE_RANGE = [
+    public const PRC_COORDINATE_RANGE = [
         self::WGS84_COORDINATE_STANDER => [
+            'lng' => [73.66, 135.05],
+            'lat' => [3.86, 53.55],
+        ],
+        self::GCJ02_COORDINATE_STANDER => [
             'lng' => [73.66, 135.05],
             'lat' => [3.86, 53.55],
         ]
