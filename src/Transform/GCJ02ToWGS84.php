@@ -38,7 +38,7 @@ class GCJ02ToWGS84 implements TransformInterface
     /**
      * @param $lng
      * @param $lat
-     * @return float|int
+     * @return float
      */
     private function transformlat($lng, $lat): float
     {
@@ -52,7 +52,7 @@ class GCJ02ToWGS84 implements TransformInterface
     /**
      * @param $lng
      * @param $lat
-     * @return float|int
+     * @return float
      */
     private function transformlng($lng, $lat): float
     {

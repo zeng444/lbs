@@ -30,6 +30,11 @@ class Earth
      */
     public const GCJ02_COORDINATE_STANDER = 'GCJ02';
 
+    /**
+     * 百度坐标系
+     */
+    public const BD09_COORDINATE_STANDER = 'BD09';
+
 
     /**
      * 第一偏心率
